@@ -71,4 +71,3 @@ done
 rm -rf ${ScriptsDir}/jd_getfanslove.js
 rm -rf ${ScriptsDir}/jd_fanslove.js"
 rm -rf ${ScriptsDir}/jd_shop_add_to_car.js
-rm -rf ${ScriptsDir}/jd_shop_add
