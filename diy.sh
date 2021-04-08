@@ -17,7 +17,7 @@ scripts_base_url_1=https://ghproxy.com/https://raw.githubusercontent.com/jaydiao
 
 ##############################  作  者  脚  本  名  称  （必填）  ##############################
 # 将相应作者的脚本填写到以下变量中
-my_scripts_list_1="jd_paopao.js jd_entertainment.js jd_mother_jump.js jd_shake.js jd_xmf.js jd_carnivalcity_plus.js jd_inter_shopsign.js jd_shop_followsku.js jd_shop_lottery.js jd_skyworth.js jd_super5g.js jd_pasture.js jd_getfanslove.js jd_fanslove.js jd_shop_add_to_car.js"
+my_scripts_list_1="jd_paopao.js jd_entertainment.js jd_mother_jump.js jd_shake.js jd_xmf.js jd_carnivalcity_plus.js jd_inter_shopsign.js jd_shop_followsku.js jd_shop_lottery.js jd_skyworth.js jd_super5g.js jd_pasture.js jd_getfanslove.js jd_fanslove.js"
 
 ##############################  随  机  函  数  ##############################
 rand() {
@@ -68,7 +68,7 @@ done
 
 ##############################  删  除  失  效  的  活  动  脚  本  ##############################
 ## 删除旧版本失效的活动示例： rm -rf ${ScriptsDir}/jd_test.js
-rm -rf ${ScriptsDir}/jd_jdaxc.js
+rm -rf ${ScriptsDir}/jd_shop_add_to_car.js
 rm -rf ${ScriptsDir}/jd_xxl_gh.js
 rm -rf ${ScriptsDir}/jd_factory_component.js
 rm -rf ${ScriptsDir}/jd_wish.js
