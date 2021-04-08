@@ -69,5 +69,5 @@ done
 ##############################  删  除  失  效  的  活  动  脚  本  ##############################
 ## 删除旧版本失效的活动示例： rm -rf ${ScriptsDir}/jd_test.js
 rm -rf ${ScriptsDir}/jd_getfanslove.js
-rm -rf ${ScriptsDir}/jd_fanslove.js"
+rm -rf ${ScriptsDir}/jd_fanslove.js
 rm -rf ${ScriptsDir}/jd_shop_add_to_car.js
