@@ -24,6 +24,7 @@ interCenter渠道店铺签到 = type=cron,script-path=https://raw.githubusercont
 
 const $ = new Env('interCenter渠道店铺签到');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
+const notify = $.isNode() ? require('./sendNotify') : '';
 const cp = $.isNode() ? require('child_process') : '';
 let cookiesArr = [], cookie = '', originCookie = '', message = '', newCookie = '';
 let helpAuthor = false;//为作者助力的开关
