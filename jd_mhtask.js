@@ -1,14 +1,16 @@
 /*
 #盲盒任务抽京豆，自行加入以下环境变量，多个活动用@连接
 export jd_mhurlList=""
-*/
 
-const $ = new Env('盲盒任务抽京豆');
+即时任务，无需cron
+ */
+
+const $ = new Env('盲盒任务抽京豆-落幕');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 //IOS等用户直接用NobyDa的jd cookie
-let cookiesArr = [], cookie = '', message = '', allMessage = '';
+let cookiesArr = [], cookie = '', message;
 let jd_mhurlList = '';
 let jd_mhurlArr = [];  
 let jd_mhurl = '';
@@ -63,7 +65,7 @@ if ($.isNode()) {
   if (allMessage) {
     if ($.isNode()) await notify.sendNotify(`${$.name}`, `${allMessage}`);
     $.msg($.name, '', allMessage);
-  }
+    }
 })()
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')

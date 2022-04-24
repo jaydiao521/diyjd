@@ -5,12 +5,12 @@ export jd_nzmhurl="https://anmp.jd.com/babelDiy/Zeus/2x36jyruNVDWxUiAiGAgHRrkqVX
 cron 35 1,23 * * *
  */
 
-const $ = new Env('女装盲盒抽京豆');
+const $ = new Env('女装盲盒京豆-落幕');
 const notify = $.isNode() ? require('./sendNotify') : '';
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 //IOS等用户直接用NobyDa的jd cookie
-let cookiesArr = [], cookie = '', message = '', allMessage = '';
+let cookiesArr = [], cookie = '', message;
 let jd_nzmhurl = '';
 if ($.isNode()) {
   Object.keys(jdCookieNode).forEach((item) => {
@@ -56,10 +56,6 @@ if ($.isNode()) {
       }
     }
   }
-  if (allMessage) {
-    if ($.isNode()) await notify.sendNotify(`${$.name}`, `${allMessage}`);
-    $.msg($.name, '', allMessage);
-    }
 })()
   .catch((e) => {
     $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
@@ -88,7 +84,6 @@ function showMsg() {
   return new Promise(resolve => {
     if ($.beans) {
       message += `本次运行获得${$.beans}京豆`
-      allMessage += `京东账号${$.index}${$.nickName}获得${$.beans}京豆\n`
       $.msg($.name, '', `京东账号${$.index}${$.nickName}\n${message}`);
     }
     resolve()
