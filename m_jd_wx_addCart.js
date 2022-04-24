@@ -13,7 +13,7 @@ const {Env} = mode ? require('./magic') : require('./magic')
 const $ = new Env('M加购有礼');
 $.whitelist = process.env.M_WX_WHITELIST
     ? process.env.M_WX_WHITELIST
-    : '1-5';
+    : '1-18';
 $.activityUrl = process.env.M_WX_ADD_CART_URL
     ? process.env.M_WX_ADD_CART_URL
     : '';
