@@ -2,30 +2,34 @@
 愤怒的锦鲤
 更新时间：2022-04-13
 备注：高速并发请求，专治偷助力。在kois环境变量中填入需要助力的pt_pin，有多个请用@符号连接
-接入了代理 https://www.xiequ.cn/ 可以去嫖携趣的 每日1000免费ip 选择1个ip txt文本返回即可
+
 作者：LingFeng魔改版
+
+需要安装依赖：
+pnpm install -g global-agent
+pnpm install -g bootstrap
+
 改用以下变量
 #雨露均沾，若配置，则车头外的ck随机顺序，这样可以等概率的随到前面来
 export  KOI_FAIR_MODE="true"
 #其他变量
 export kois ="pt_pin@pt_pin@pt_pin" 指定车头pin
 export PROXY_URL ="" ip代理api
-export gua_cleancart_PandaToken = ''
 export Rabbit_Url =""
 脚本兼容: QuantumultX, Surge,Loon, JSBox, Node.js
 =================================Quantumultx=========================
 [task_local]
 #愤怒的锦鲤
-30 0,8 * * * https://raw.githubusercontent.com/LingFeng0918/LF_JD/main/jd_angryKoi_all.js, tag=愤怒的锦鲤, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
+30 0,8 * * * jd_angryKoi_log.js, tag=愤怒的锦鲤, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true
 =================================Loon===================================
 [Script]
-cron "30 0,8  * * *" script-path=https://raw.githubusercontent.com/LingFeng0918/LF_JD/main/jd_angryKoi_all.js,tag=愤怒的锦鲤
+cron "30 0,8  * * *" script-path=jd_angryKoi_log.js,tag=愤怒的锦鲤
 ===================================Surge================================
-愤怒的锦鲤 = type=cron,cronexp="30 0,8  * * *",wake-system=1,timeout=3600,script-path=https://raw.githubusercontent.com/LingFeng0918/LF_JD/main/jd_angryKoi_all.js
+愤怒的锦鲤 = type=cron,cronexp="30 0,8  * * *",wake-system=1,timeout=3600,script-path=jd_angryKoi_log.js
 ====================================小火箭=============================
-愤怒的锦鲤 = type=cron,script-path=https://raw.githubusercontent.com/LingFeng0918/LF_JD/main/jd_angryKoi_all.js, cronexpr="30 0,8  * * *", timeout=3600, enable=true
+愤怒的锦鲤 = type=cron,script-path=jd_angryKoi_log.js, cronexpr="30 0,8  * * *", timeout=3600, enable=true
  */
-const $ = new Env("愤怒的锦鲤多接口版 - LingFeng ")
+const $ = new Env("愤怒的锦鲤-LOG版 ")
 require("global-agent/bootstrap");
 const JD_API_HOST = 'https://api.m.jd.com/client.action';
 //const ua = `jdltapp;iPhone;3.1.0;${Math.ceil(Math.random() * 4 + 10)}.${Math.ceil(Math.random() * 4)};${randomString(40)}`
@@ -36,8 +40,7 @@ var kois = process.env.kois ?? ""
 let proxyUrl = process.env.PROXY_URL ?? ""; // 代理的api地址
 let proxy = "";
 let RabbitUrl = process.env.Rabbit_Url ?? ""; // logurl
-let jdPandaToken = '';
-jdPandaToken = $.isNode() ? (process.env.gua_cleancart_PandaToken ? process.env.gua_cleancart_PandaToken : `${jdPandaToken}`) : ($.getdata('gua_cleancart_PandaToken') ? $.getdata('gua_cleancart_PandaToken') : `${jdPandaToken}`);
+let jdlogurl = process.env.Jdlog_Url ?? ""; // logurl
 let nums = 0;
 let cookiesArr = []
 let scriptsLogArr = []
@@ -47,8 +50,8 @@ if (proxyUrl){
         /[a-zA-Z0-9][-a-zA-Z0-9]{0,62}(\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+\.?/g;
     global.GLOBAL_AGENT.NO_PROXY = `${urlRex.exec(proxyUrl)[0]},log.catttt.com`;
 }
-if (!jdPandaToken && !RabbitUrl){
-    console.log(`请填写Panda获取的Token,变量是gua_cleancart_PandaToke 或者填写Rabbit获取的logurl，变量是Rabbit_Url`)
+if (!jdlogurl && !RabbitUrl){
+    console.log(`请填写普通获取的logurl,变量是Jdlog_Url 或者填写Rabbit获取的logurl，变量是Rabbit_Url`)
     return;
 }
 var logs;
@@ -528,55 +531,48 @@ async function requireConfig() {
     })
 }
 function getJinliLogs() {
-    if (jdPandaToken && RabbitUrl){
+    if (jdlogurl && RabbitUrl){
            let nums = Math.floor(Math.random() * 9)+1;
             if (nums<5){
-                console.info('随机从panda接口获取log!')
-                return pandaLogs();
+                console.info('随机从普通接口获取log!')
+                return JdLogs();
             }else {
                 console.info('随机从rabbit接口获取log!')
                 return rabbitLogs();
             }
     }
-    if(jdPandaToken && !RabbitUrl){
-        console.info('进入panda接口获取log!')
-        return pandaLogs();
+    if(jdlogurl && !RabbitUrl){
+        console.info('进入普通接口获取log!')
+        return JdLogs();
     }
-    if(RabbitUrl && !jdPandaToken){
+    if(RabbitUrl && !jdlogurl){
         console.info('进入rabbit接口获取log!')
         return rabbitLogs();
     }
     return '';
 }
-function pandaLogs(){
+function JdLogs(){
     var logs = '';
     return new Promise((resolve) => {
         let url = {
-            url: "https://api.jds.codes/jd/log",
-            followRedirect: false,
-            headers: {
-                'Accept': '*/*',
-                "accept-encoding": "gzip, deflate, br",
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + jdPandaToken
-            },
+            url:`${jdlogurl}`,
             timeout: 30000
         }
         $.get(url, async(err, resp, data) => {
             try {
                 data = JSON.parse(data);
-                if (data && data.code == 200) {
-                    lnrequesttimes = data.request_times;
-                    console.log("连接Panda服务成功，当前Token使用次数为" + lnrequesttimes);
-                    if (data.data)
-                        logs = data.data || '';
-                    console.info(logs['random']+"----"+logs['log'])
+                if (data && data.status == 0) {
+                    logs = {
+                        random: data.random,
+                        log: data.log
+                    }
+                    //console.info(logs['random']+"----"+logs['log'])
                     if (logs != '')
                         resolve(logs);
                     else
-                        console.log("签名获取失败,可能Token使用次数上限或被封.");
+                        console.log("log获取失败.");
                 } else {
-                    console.log("签名获取失败.");
+                    console.log("log获取失败.");
                 }
 
             }catch (e) {
@@ -604,7 +600,7 @@ function rabbitLogs(){
                         random: data.data.random,
                         log: data.data.log
                     }
-                    console.info(logs['random']+"----"+logs['log'])
+                    //console.info(logs['random']+"----"+logs['log'])
                     if (logs != '')
                         resolve(logs);
                     else
