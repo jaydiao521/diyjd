@@ -8,8 +8,6 @@
 
 特别说明：搬运脚本已得到大佬许可，此仓库脚本仅作为个人使用并可能用于日常线报活动分享，感谢大佬提供的脚本
 
-脚本加密部分代码提取自 smiek2121 的开卡脚本
-
 */
 
 const $ = new Env("大牌联合");
@@ -61,7 +59,7 @@ let actId = process.env.DAPAINEW || '';    //是否清空，如果为false，则
             $.ADID = getUUID('xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx', 1);
             $.UUID = getUUID('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
             authorCodeList = [
-                'DtFFEGhncpbIStUPG9gL1F4tLNYA4seuA67MOIYQxEk3Vl9+AVo4NF+tgyeIc6A6kdK3rLBQpEQH9V4tdrrh0w==',
+                'ZjZaq7+wrehqofWNRvE3hGBUh0gimxufjFRMgNwy0cYiU+N6ZQy0LI2KZrs00RAY',
             ]
             $.appkey = "51B59BB805903DA4CE513D29EC448375"
             $.userId = "10299171"
