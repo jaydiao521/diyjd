@@ -1,8 +1,11 @@
 /*
-店铺签到
-环境变量: export DPQDTK="token1&token2"
+cron 1 0 0 * * * jd_dpqd.js
+店铺签到，各类店铺签到，有新的店铺直接添加token即可
+搬运cui521大佬脚本，请勿外传！！！
+环境变量:
+DPQDTK: token1&token2
+仓库不再提供token
 */
-
 let token = []
 if (process.env.DPQDTK) {
   if (process.env.DPQDTK.includes('\n')) {
@@ -11,8 +14,11 @@ if (process.env.DPQDTK) {
     token = [...process.env.DPQDTK.split('&'),...token]
   }
 }
-
-const $ = new Env('店铺签到');
+if (!token.length) {
+  console.log('无店铺签到token,不执行.需自备token:环境变DPQDTK: tk1&tk2.')
+  // return
+}
+const $ = new Env('店铺签到-落幕');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
@@ -67,9 +73,9 @@ if ($.isNode()) {
       await $.wait(1500)
     }
   }
-  //if ($.isNode() && allMessage) {
-  //  await notify.sendNotify(`${$.name}`, `${allMessage}`)
-  //}
+  if ($.isNode() && allMessage) {
+    await notify.sendNotify(`${$.name}`, `${allMessage}`)
+  }
 })()
     .catch((e) => {
       $.log('', `❌ ${$.name}, 失败! 原因: ${e}!`, '')
