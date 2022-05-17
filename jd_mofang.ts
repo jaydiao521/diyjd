@@ -8,13 +8,13 @@ import {requireConfig, wait, post, get} from './TS_USER_AGENTS'
 import {existsSync} from "fs";
 import * as dotenv from 'dotenv'
 
-let cookie: string = '', res: any = '', UserName: string, index: number, log: string = './mofanglog_toulu.ts'
+let cookie: string = '', res: any = '', UserName: string, index: number, log: string = ''
 let rabbitToken: string = process.env.RABBIT_TOKEN || '', tg_id: string = process.env.TG_ID || '', mf_logs: any
 
 !(async () => {
   dotenv.config()
-  if (existsSync('./test/mf_log.ts')) {
-    mf_logs = require('./test/mf_log').mf_logs
+  if (existsSync('./mofanglog_toulu.ts')) {
+    mf_logs = require('./mofanglog_toulu').mf_logs
   } else {
     console.log('./test/mf_log not found')
   }
