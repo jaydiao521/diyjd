@@ -8,7 +8,7 @@ import {requireConfig, wait, post, get} from './TS_USER_AGENTS'
 import {existsSync} from "fs";
 import * as dotenv from 'dotenv'
 
-let cookie: string = '', res: any = '', UserName: string, index: number, log: string = ''
+let cookie: string = '', res: any = '', UserName: string, index: number, log: string = './mofanglog_toulu.ts'
 let rabbitToken: string = process.env.RABBIT_TOKEN || '', tg_id: string = process.env.TG_ID || '', mf_logs: any
 
 !(async () => {
