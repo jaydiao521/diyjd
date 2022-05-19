@@ -13,7 +13,7 @@
 function openCardActivity(activityId, activityUrl, pin, num, againUserIndex) {
   return new Promise((resolve) => {
     const prefix = activityUrl.includes("cjhydz") ? "cjhydz" : "lzkjdz";
-    const $ = new Env("微定制瓜分京豆-落幕");
+    const $ = new Env("微定制瓜分京豆");
     const notify = $.isNode() ? require("./sendNotify") : "";
     const jdCookieNode = $.isNode() ? require("./jdCookie.js") : "";
     let cookiesArr = [],
@@ -726,8 +726,8 @@ function Env(t, e) { "undefined" != typeof process && JSON.stringify(process.env
   await openCardActivity(
     "d2e7d12554aa4cbead58f5280ac5c9c2",
     "https://cjhydz-isv.isvjcloud.com",
-    "1877001-67209889",
-    31,
+    "pt_pin",
+    60,
     []
   );
   console.log("开卡已完成！");
